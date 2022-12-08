@@ -11,6 +11,13 @@ import { takeEvery, put, apply } from 'redux-saga/effects';
 //import axios
 import axios from 'axios';
 
+
+const starterFavorites = [
+  {id: '1',category_id:'1',url: 'https://images.unsplash.com/photo-1670431756517-385ffd9758a8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60', desciption:'Some stuff'},
+  {id: '2',category_id:'1',url: 'https://images.unsplash.com/photo-1662581871665-f299ba8ace07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60', desciption:'Some stuff'},
+  {id: '3',category_id:'1',url: 'https://images.unsplash.com/photo-1670521525361-ac4aec66b2c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60', desciption:'Some stuff'}
+]
+
 //create saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
@@ -50,7 +57,7 @@ const searchReducer = (state = [], action) => {
   }
   return state;
 };
-const favoritesReducer = (state = [], action) => {
+const favoritesReducer = (state = starterFavorites, action) => {
   console.log('in favoritesGif Store. Action:', action);
   //This will route to internal API, Database
   if (action.type === 'FAV_GIFS') {
