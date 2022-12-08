@@ -24,7 +24,8 @@ function Favorites(){
     return(
         <>
             <h1>I am Favorites</h1>
-            <label for="categories">Choose a category:</label>
+            <label htmlFor="categories">Choose a category:</label>
+            {/* Selector to register the category the user wants to fetch */}
             <select name="categories" id="categories" onChange={(event) => setCategory(event)}>
                 <option value=''></option>
                 <option value="1">Funny</option>
@@ -33,12 +34,13 @@ function Favorites(){
                 <option value="4">NSFW</option>
                 <option value="5">Meme</option>
             </select>
+            {/* Submits category */}
             <button onClick={() => handleSubmit()}>Search</button>
             <div className="favorites grid-container">
                 {imagesArray.map(image => 
                     {return (
-                        <div class="grid-item" key={image.id}>
-                            <image url={image.url} alt={image.description}/>
+                        <div className="grid-item" key={image.id}>
+                            <img src={image.url} alt={image.description} height='200px' width='200px'/>
                         </div>
                     )}
                 )}
