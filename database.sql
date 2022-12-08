@@ -20,3 +20,12 @@ CREATE TABLE "favorite_giphy" (
 	"URL" VARCHAR (200),
 	"description" VARCHAR (200)
 );
+
+INSERT INTO "favorite_giphy" ("category_id","URL","description")
+VALUES
+(1, 
+'https://images.unsplash.com/photo-1670258880099-f1f0bd41e44a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+'lady sitting in field'),
+(1, 
+'https://images.unsplash.com/photo-1670258880099-f1f0bd41e44a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+'lady sitting in field');
