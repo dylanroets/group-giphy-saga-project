@@ -4,9 +4,10 @@ import App from './components/App/App';
 //import Redux
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import { Provider } from 'react-redux';
 //import saga middleware
 import createSagaMiddleware from 'redux-saga';
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeEvery, put, apply } from 'redux-saga/effects';
 //import axios
 import axios from 'axios';
 
@@ -19,9 +20,58 @@ function* rootSaga() {
   yield takeEvery('GET_FAVS', getFavs);
 }
 
-//Generator Function
-function getGifs(action) {
+//Generator Functions
+function* getGifs(action) {
   console.log('in getGifs:', action);
+  //This will route to external API, 'GIPHY'
+  try {
+    const response = yield axios.get('/api/giphy');
+    yield put({ type: 'SEARCH_GIFS', payload: response });
+  } catch (error) {
+    alert(error);
+  }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+function* getFavs() {
+  console.log('in GetFavs.');
+  try {
+    const response = yield axios.get('/api/favorite');
+    yield put({ type: 'FAV_GIFS', payload: response });
+  } catch (error) {
+    alert(error);
+  }
+}
+
+// Reducers
+const searchReducer = (state = [], action) => {
+  console.log('in searchGif Store. Action:', action);
+  if (action.type === 'SEARCH_GIFS') {
+    return action.payload;
+  }
+  return state;
+};
+const favoritesReducer = (state = [], action) => {
+  console.log('in favoritesGif Store. Action:', action);
+  //This will route to internal API, Database
+  if (action.type === 'FAV_GIFS') {
+    return action.payload;
+  }
+  return state;
+};
+
+//Creating Store
+const storeInstance = createStore(
+  combineReducers({ searchReducer, favoritesReducer }),
+  //Add sagaMiddleware to store
+  applyMiddleware(sagaMiddleware, logger)
+);
+
+//Pass rootSaga into sagaMiddleware
+sagaMiddleware.run(rootSaga);
+
+ReactDOM.render(
+  <Provider store={storeInstance}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
