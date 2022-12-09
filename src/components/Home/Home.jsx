@@ -1,6 +1,7 @@
-import './Home.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import './Home.css';
 
 function Home(){
     const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function Home(){
                 />
                 <button type='submit'>Search Giphy</button>
             </form>
-            <div className="searches-grid-container">
+            <div className="searches grid-container">
                 {searchArray.map(image => 
                     {return (
                         <div className="grid-item" key={image.id}>
