@@ -95,7 +95,7 @@ const searchReducer = (state = [], action) => {
   return state;
 };
 
-const favoritesReducer = (state = starterFavorites, action) => {
+const favoritesReducer = (state = [], action) => {
   console.log('in favoritesGif Store. Action:', action);
   //This will route to internal API, Database
   if (action.type === 'FAV_GIFS') {
