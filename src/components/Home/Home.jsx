@@ -10,8 +10,8 @@ function Home(){
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch({
-            type: 'SEARCH_GIFS',
-            payload: {newSearch},
+            type: 'GET_SEARCH',
+            payload: newSearch,
         });
         setNewSearch('');
     };

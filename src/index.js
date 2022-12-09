@@ -30,9 +30,10 @@ function* rootSaga() {
 
 //Generator Functions
 function* searchGifs(action) {
-  console.log('in getGifs:', action);
+  console.log('in searchGifs:', action);
   try {
     const searchResults = yield axios.get(`/api/search/${action.payload}`);
+    console.log('action.payload: ', action.payload);
     yield put({ type: 'SET_SEARCH_GIFS', payload: searchResults.data });
   } catch (error) {
     alert(error);
