@@ -13,6 +13,7 @@ function Home(){
             type: 'SEARCH_GIFS',
             payload: {newSearch},
         });
+        setNewSearch('');
     };
 
 
@@ -32,6 +33,7 @@ function Home(){
                     }}
                     placeholder="Search Giphy"
                 />
+                <button type='submit'>Search Giphy</button>
             </form>
         </>
     )

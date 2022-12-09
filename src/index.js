@@ -23,18 +23,17 @@ const sagaMiddleware = createSagaMiddleware();
 
 //Watcher Function
 function* rootSaga() {
-  yield takeEvery('GET_GIPHY', getGifs);
+  yield takeEvery('GET_SEARCH', searchGifs);
   yield takeEvery('GET_FAVS', getFavs);
   yield takeEvery('FETCH_BY_CATEGORY', getByCategory)
 }
 
 //Generator Functions
-function* getGifs(action) {
+function* searchGifs(action) {
   console.log('in getGifs:', action);
-  //This will route to external API, 'GIPHY'
   try {
-    const response = yield axios.get('/api/giphy');
-    yield put({ type: 'SEARCH_GIFS', payload: response });
+    const searchResults = yield axios.get(`/api/search/${action.payload}`);
+    yield put({ type: 'SET_SEARCH_GIFS', payload: searchResults.data });
   } catch (error) {
     alert(error);
   }
@@ -65,7 +64,7 @@ function* getFavs() {
 // Reducers
 const searchReducer = (state = [], action) => {
   console.log('in searchGif Store. Action:', action);
-  if (action.type === 'SEARCH_GIFS') {
+  if (action.type === 'SET_SEARCH_GIFS') {
     return action.payload;
   }
   return state;
