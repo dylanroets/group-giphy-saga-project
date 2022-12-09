@@ -17,10 +17,6 @@ function Home(){
         setNewSearch('');
     };
 
-
-
-
-
     return(
         <>
             <form onSubmit={handleSubmit} id="searchForm">
@@ -40,7 +36,7 @@ function Home(){
                 {searchArray.map(image => 
                     {return (
                         <div className="grid-item" key={image.id}>
-                            <img src={image.original} height='200px' width='200px'/>
+                            <iframe src={image.embed_url} height='200px' width='200px'/>
                         </div>
                     )}
                 )}
