@@ -8,6 +8,26 @@ router.get('/', (req, res) => {
   res.sendStatus(200);
 });
 
+//get by id req.body  
+router.get('/:id', (req, res) => {
+  console.log('get by category!!!', req.params.id)
+  
+  const queryText = 
+  `SELECT *
+  FROM  "favorite_giphy"
+  WHERE "category_id"=$1`;
+  pool.query(queryText, [req.params.id])
+    .then((result) => { 
+      console.log(result.rows)
+      res.send(result.rows)
+     })
+    .catch((err) => {
+      console.log('Error completing SELECT', err);
+      res.sendStatus(500);
+    });
+});
+
+
 // add a new favorite
 router.post('/', (req, res) => {
   res.sendStatus(200);
