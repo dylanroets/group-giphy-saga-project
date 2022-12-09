@@ -30,6 +30,19 @@ router.get('/:id', (req, res) => {
 
 // add a new favorite
 router.post('/', (req, res) => {
+  console.log('router.post', req.body)
+  const newGif = req.body
+  const queryText = `INSERT INTO "favorite_giphy" ("category_id", "URL", "description")
+                      VALUES ($1, $2, $3)`;
+  const queryValues =[
+    newGif
+  ];
+  pool.query(queryText, queryValues)
+    .then(() => { res.sendStatus(201); })
+    .catch((err) => {
+      console.log('Error completing POST', err);
+      res.sendStatus(500);
+    });
   res.sendStatus(200);
 });
 
