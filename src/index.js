@@ -66,7 +66,7 @@ function* getFavs() {
 const searchReducer = (state = [], action) => {
   console.log('in searchGif Store. Action:', action);
   if (action.type === 'SET_SEARCH_GIFS') {
-    return action.payload;
+    return action.payload.data;
   }
   return state;
 };
