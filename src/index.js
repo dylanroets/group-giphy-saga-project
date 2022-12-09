@@ -18,6 +18,7 @@ const sagaMiddleware = createSagaMiddleware();
 function* rootSaga() {
   yield takeEvery('GET_GIPHY', getGifs);
   yield takeEvery('GET_FAVS', getFavs);
+  yield takeEvery('FETCH_BY_CATEGORY', getByCategory)
 }
 
 //Generator Functions
@@ -30,6 +31,18 @@ function* getGifs(action) {
   } catch (error) {
     alert(error);
   }
+}
+
+//favorites page search function
+function* getByCategory(action) {
+    console.log('getByCategory', action.payload.categoryID)
+    try{
+        const response = yield axios.get(`/api/favorite/${action.payload.categoryID}`);
+        console.log('wow',response.data)
+        yield put({ type: 'FAV_GIFS', payload: response.data });
+    }catch (error) {
+        alert(error);
+    }
 }
 
 function* getFavs() {
@@ -54,6 +67,7 @@ const favoritesReducer = (state = [], action) => {
   console.log('in favoritesGif Store. Action:', action);
   //This will route to internal API, Database
   if (action.type === 'FAV_GIFS') {
+    console.log("favoritesReducer!!!!", action.payload)
     return action.payload;
   }
   return state;
