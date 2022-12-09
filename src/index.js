@@ -26,6 +26,7 @@ function* rootSaga() {
   yield takeEvery('GET_SEARCH', searchGifs);
   yield takeEvery('GET_FAVS', getFavs);
   yield takeEvery('FETCH_BY_CATEGORY', getByCategory)
+  yield takeEvery('DELETE_FAVORITE', deleteFavorite);
 }
 
 //Generator Functions
@@ -61,6 +62,18 @@ function* getFavs() {
   }
 }
 
+function* deleteFavorite(action){
+  console.log('in deleteFavorite w/', action.payload.id, '&', action.payload.category_id);
+  const id = action.payload.id;
+  const category_id = action.payload.category_id
+  try{ 
+    yield axios.delete('/api/favorite/'+ id);
+    yield put({type:'FETCH_BY_CATEGORY', payload: {categoryID: category_id}})
+  } catch (err){
+    console.log(err);
+  }
+}
+
 // Reducers
 const searchReducer = (state = [], action) => {
   console.log('in searchGif Store. Action:', action);
@@ -69,6 +82,7 @@ const searchReducer = (state = [], action) => {
   }
   return state;
 };
+
 const favoritesReducer = (state = starterFavorites, action) => {
   console.log('in favoritesGif Store. Action:', action);
   //This will route to internal API, Database
