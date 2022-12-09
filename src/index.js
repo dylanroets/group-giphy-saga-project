@@ -31,9 +31,10 @@ function* rootSaga() {
 
 //Generator Functions
 function* searchGifs(action) {
-  console.log('in getGifs:', action);
+  console.log('in searchGifs:', action);
   try {
     const searchResults = yield axios.get(`/api/search/${action.payload}`);
+    console.log('action.payload: ', action.payload);
     yield put({ type: 'SET_SEARCH_GIFS', payload: searchResults.data });
   } catch (error) {
     alert(error);
@@ -78,7 +79,7 @@ function* deleteFavorite(action){
 const searchReducer = (state = [], action) => {
   console.log('in searchGif Store. Action:', action);
   if (action.type === 'SET_SEARCH_GIFS') {
-    return action.payload;
+    return action.payload.data;
   }
   return state;
 };

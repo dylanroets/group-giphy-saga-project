@@ -4,14 +4,15 @@ import { useState } from 'react';
 
 function Home(){
     const dispatch = useDispatch();
+    const searchArray = useSelector(store => store.searchReducer);
 
     const [newSearch, setNewSearch] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch({
-            type: 'SEARCH_GIFS',
-            payload: {newSearch},
+            type: 'GET_SEARCH',
+            payload: newSearch,
         });
         setNewSearch('');
     };
@@ -35,6 +36,15 @@ function Home(){
                 />
                 <button type='submit'>Search Giphy</button>
             </form>
+            <div className="searches-grid-container">
+                {searchArray.map(image => 
+                    {return (
+                        <div className="grid-item" key={image.id}>
+                            <img src={image.original} height='200px' width='200px'/>
+                        </div>
+                    )}
+                )}
+            </div> 
         </>
     )
 }
