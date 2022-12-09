@@ -34,10 +34,8 @@ router.post('/', (req, res) => {
   const newGif = req.body
   const queryText = `INSERT INTO "favorite_giphy" ("category_id", "URL", "description")
                       VALUES ($1, $2, $3)`;
-  const queryValues =[
-    newGif
-  ];
-  pool.query(queryText, queryValues)
+  
+  pool.query(queryText, [newGif.category_id, newGif.URL, newGif.description])
     .then(() => { res.sendStatus(201); })
     .catch((err) => {
       console.log('Error completing POST', err);
