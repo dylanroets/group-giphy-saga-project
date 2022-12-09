@@ -36,12 +36,14 @@ router.post('/', (req, res) => {
                       VALUES ($1, $2, $3)`;
   
   pool.query(queryText, [newGif.category_id, newGif.URL, newGif.description])
-    .then(() => { res.sendStatus(201); })
+    .then(() => { 
+        res.sendStatus(200); 
+    })
     .catch((err) => {
       console.log('Error completing POST', err);
       res.sendStatus(500);
     });
-  res.sendStatus(200);
+  // !! res.sendStatus(200); this triggered a setHeader error. 
 });
 
 // update given favorite with a category id

@@ -27,7 +27,7 @@ function* rootSaga() {
   yield takeEvery('GET_FAVS', getFavs);
   yield takeEvery('FETCH_BY_CATEGORY', getByCategory)
   yield takeEvery('DELETE_FAVORITE', deleteFavorite);
-  yield takeEvery('ADD_TO_FAVORITE', addToFavorite);
+  yield takeEvery('ADD_TO_FAVORITES', addToFavorite);
 }
 
 //Generator Functions
@@ -79,7 +79,7 @@ function* deleteFavorite(action){
 function* addToFavorite(action){
   console.log('in addToFavorites w/', action.payload);
   try{
-    axios.post('/api/favorite/', action.payload);
+    yield axios.post('/api/favorite/', action.payload);
   }
   catch (err){
     console.log(err);

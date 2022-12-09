@@ -63,7 +63,7 @@ function Favorites(){
                 {imagesArray.map(image => 
                     {return (
                         <div className="grid-item" key={image.id}>
-                            <img src={image.url} alt={image.description} height='200px' width='200px'/>
+                            <iframe src={image.URL} alt={image.description} height='200px' width='200px'/>
                             <div>
                                 <div>
                                     <label>{imageCategory(image.category_id)}</label>
