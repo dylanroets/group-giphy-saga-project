@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
     .then((result) => { 
       console.log(result.rows)
       res.send(result.rows)
-     })
+    })
     .catch((err) => {
       console.log('Error completing SELECT', err);
       res.sendStatus(500);
@@ -40,8 +40,16 @@ router.put('/:favId', (req, res) => {
 });
 
 // delete a favorite
-router.delete('/', (req, res) => {
-  res.sendStatus(200);
+router.delete('/:id', (req, res) => {
+  const queryText = 'DELETE FROM "favorite_giphy" WHERE id=$1';
+  pool.query(queryText, [req.params.id])
+  .then(() => {
+    res.sendStatus(200);
+  })
+  .catch((err) => {
+    console.log('Error deleting favorite by id:', err);
+    res.sendStatus(500);
+  })
 });
 
 module.exports = router;

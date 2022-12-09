@@ -17,6 +17,29 @@ function Favorites(){
         dispatch({type: 'FETCH_BY_CATEGORY', payload: {categoryID: category}});
     }
 
+    const removeFavorite = (id, category_id) => {
+        //deleted an image from favorite DB
+        console.log('requesting delete of:', id, '&', category_id);
+        dispatch({type: "DELETE_FAVORITE", payload: {id, category_id}});
+    }
+
+    const imageCategory = (category) => {
+        switch (category){
+            case 1:
+                return 'Funny';
+            case 2:
+                return 'Cohort';
+            case 3:
+                return 'Cartoon';
+            case 4: 
+                return 'NSFW';
+            case 5:
+                return 'Meme';
+            default:
+                return 'No Category';
+        }
+    }
+
     useEffect(()=>{
 
     }, []);
@@ -41,6 +64,14 @@ function Favorites(){
                     {return (
                         <div className="grid-item" key={image.id}>
                             <img src={image.url} alt={image.description} height='200px' width='200px'/>
+                            <div>
+                                <div>
+                                    <label>{imageCategory(image.category_id)}</label>
+                                </div>
+                                <div>
+                                    <button data-id={image.id} onClick={() => removeFavorite(image.id, image.category_id)}>Unfavorite</button>
+                                </div>
+                            </div>
                         </div>
                     )}
                 )}
